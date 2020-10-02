@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using NToastNotify;
+using Projeto_Oficial.Models;
 
 namespace Projeto_Oficial
 {
@@ -23,6 +25,10 @@ namespace Projeto_Oficial
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string stringConection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BancoProjeto;Integrated Security=True;";
+            services.AddDbContext<Context>(options =>
+            options.UseSqlServer(stringConection));
+
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation()
                 .AddNToastNotifyToastr(new ToastrOptions()
